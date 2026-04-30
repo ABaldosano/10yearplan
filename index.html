@@ -4,221 +4,212 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Arthur's Wealth Blueprint</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --gold: #c9a84c;
-    --green: #a0c4a0;
-    --blue: #8ab4d4;
-    --purple: #c490d1;
-    --bg: #0e0c0a;
-    --surface: #13110e;
-    --border: #2a2520;
-    --text: #e8e0d0;
-    --text-dim: #b0a898;
-    --text-muted: #9a9080;
-    --text-faint: #666;
+    --gold: #b8860b;
+    --gold-light: #fdf6e3;
+    --gold-border: #e8c84a;
+    --green: #2d6a2d;
+    --green-light: #f0f7f0;
+    --green-border: #7dba7d;
+    --blue: #1a5276;
+    --blue-light: #eaf4fb;
+    --blue-border: #7db8d8;
+    --purple: #6c3483;
+    --purple-light: #f5eef8;
+    --purple-border: #b87dd8;
+    --bg: #ffffff;
+    --surface: #f8f8f6;
+    --border: #e0ddd8;
+    --text: #1a1a1a;
+    --text-dim: #333333;
+    --text-muted: #555555;
+    --text-faint: #888888;
   }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'EB Garamond', Georgia, serif;
+    font-family: 'Inter', sans-serif;
     min-height: 100vh;
     padding: 40px 24px;
   }
 
-  .wrap { max-width: 720px; margin: 0 auto; }
+  .wrap { max-width: 740px; margin: 0 auto; }
 
   /* Header */
-  .header { text-align: center; margin-bottom: 48px; }
+  .header { text-align: center; margin-bottom: 52px; padding-bottom: 32px; border-bottom: 2px solid #1a1a1a; }
   .header-label {
-    font-size: 11px; letter-spacing: 6px; color: var(--gold);
-    text-transform: uppercase; margin-bottom: 12px;
-    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 5px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 14px;
+    font-family: 'Inter', sans-serif; font-weight: 700;
   }
   .header h1 {
-    font-size: 32px; font-weight: 400; color: #f0e8d8; line-height: 1.2;
-    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 800; color: #1a1a1a; line-height: 1.15;
+    font-family: 'Playfair Display', serif;
   }
-  .header-rule { width: 60px; height: 1px; background: var(--gold); margin: 16px auto 0; }
+  .header-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; font-weight: 500; }
 
   /* Section label */
   .section-label {
-    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-    margin-bottom: 20px; text-align: center;
-    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 22px; font-weight: 700; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; gap: 12px;
   }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* Divider */
-  .divider { width: 100%; height: 1px; background: #1e1c18; margin: 44px 0; }
+  .divider { width: 100%; height: 1px; background: var(--border); margin: 48px 0; }
 
   /* Timeline */
   .timeline { position: relative; }
   .timeline-line {
-    position: absolute; left: 19px; top: 10px; bottom: 10px; width: 1px;
-    background: linear-gradient(180deg, var(--gold), var(--blue), var(--purple));
+    position: absolute; left: 20px; top: 12px; bottom: 12px; width: 2px;
+    background: linear-gradient(180deg, var(--gold-border), var(--blue-border), var(--purple-border));
     z-index: 0;
   }
-  .timeline-item { display: flex; gap: 20px; margin-bottom: 14px; position: relative; z-index: 1; }
-  .timeline-dot-wrap { width: 38px; flex-shrink: 0; display: flex; align-items: flex-start; padding-top: 6px; }
-  .timeline-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .timeline-item { display: flex; gap: 20px; margin-bottom: 16px; position: relative; z-index: 1; }
+  .timeline-dot-wrap { width: 40px; flex-shrink: 0; display: flex; align-items: flex-start; padding-top: 18px; }
+  .timeline-dot { width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 2px currentColor; }
   .timeline-card {
-    flex: 1; border-radius: 4px; padding: 16px 18px;
-    border-top-width: 2px; border-top-style: solid;
-    border-right: 1px solid; border-bottom: 1px solid; border-left: 1px solid;
+    flex: 1; border-radius: 8px; padding: 20px 22px;
+    border: 1.5px solid; border-top-width: 4px;
   }
-  .phase-meta { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; }
-  .phase-title-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
-  .phase-name { font-size: 17px; color: #f0e8d8; }
-  .phase-salary { font-size: 24px; font-weight: 600; }
-  .phase-salary-unit { font-size: 11px; margin-left: 4px; font-weight: 400; }
+  .phase-meta {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px; font-weight: 700; font-family: 'Inter', sans-serif;
+  }
+  .phase-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+  .phase-name { font-size: 20px; font-weight: 700; color: #1a1a1a; font-family: 'Playfair Display', serif; }
+  .phase-salary { font-size: 22px; font-weight: 800; font-family: 'Inter', sans-serif; }
+  .phase-salary-unit { font-size: 12px; margin-left: 3px; font-weight: 500; opacity: 0.6; }
   .phase-items { list-style: none; }
   .phase-item {
-    display: flex; gap: 10px; align-items: flex-start; padding: 6px 0;
-    font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
+    font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500;
   }
-  .phase-item:not(:last-child) { border-bottom: 1px solid #ffffff06; }
-  .phase-arrow { flex-shrink: 0; }
+  .phase-item:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .phase-arrow { flex-shrink: 0; font-weight: 700; }
   .phase-goal {
-    margin-top: 12px; padding-top: 10px;
-    font-size: 11px; font-style: italic;
+    margin-top: 14px; padding-top: 12px;
+    font-size: 13px; font-style: italic; font-weight: 600;
   }
 
   /* Core strategy */
   .core-strategy {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px; padding: 18px 20px; margin-top: 4px;
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 20px 22px; margin-top: 6px;
   }
-  .core-label { font-size: 9px; letter-spacing: 3px; color: #888; text-transform: uppercase; margin-bottom: 14px; font-family: 'Cormorant Garamond', serif; }
-  .core-cols { display: flex; gap: 12px; flex-wrap: wrap; }
-  .core-col { flex: 1 1 120px; padding-left: 12px; border-left-width: 2px; border-left-style: solid; }
-  .core-col-label { font-size: 12px; margin-bottom: 4px; }
-  .core-col-desc { font-size: 11px; color: var(--text-faint); line-height: 1.6; }
+  .core-label { font-size: 10px; letter-spacing: 2px; color: var(--text-faint); text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+  .core-cols { display: flex; gap: 14px; flex-wrap: wrap; }
+  .core-col { flex: 1 1 120px; padding-left: 14px; border-left-width: 3px; border-left-style: solid; }
+  .core-col-label { font-size: 14px; margin-bottom: 4px; font-weight: 700; }
+  .core-col-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; font-weight: 500; }
 
   /* Streams */
-  .streams { display: flex; gap: 12px; flex-wrap: wrap; }
+  .streams { display: flex; gap: 14px; flex-wrap: wrap; }
   .stream-card {
-    flex: 1 1 180px; border-radius: 4px; padding: 20px 16px;
-    border-top-width: 2px; border-top-style: solid;
+    flex: 1 1 180px; border-radius: 8px; padding: 22px 18px;
+    border: 1.5px solid; border-top-width: 4px;
   }
-  .stream-icon { font-size: 24px; margin-bottom: 8px; }
-  .stream-type { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; }
-  .stream-name { font-size: 15px; margin-bottom: 8px; color: #f0e8d8; }
-  .stream-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .stream-icon { font-size: 28px; margin-bottom: 10px; }
+  .stream-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
+  .stream-name { font-size: 17px; margin-bottom: 8px; color: #1a1a1a; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .stream-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 500; }
 
   /* Connection */
   .connection {
-    border: 1px solid var(--border); border-radius: 4px;
-    background: var(--surface); padding: 24px 20px;
-    font-size: 13px; line-height: 2.2; color: var(--text-dim);
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--surface); padding: 26px 22px;
+    font-size: 15px; line-height: 2.4; color: var(--text-dim); font-weight: 500;
   }
   .connection-footer {
-    margin-top: 12px; padding-top: 12px;
+    margin-top: 14px; padding-top: 14px;
     border-top: 1px solid var(--border);
-    color: var(--gold); font-size: 12px;
+    font-size: 13px; font-weight: 700;
   }
 
-  /* Phases accordion */
-  .accordion { display: flex; flex-direction: column; gap: 2px; }
+  /* Accordion */
+  .accordion { display: flex; flex-direction: column; gap: 4px; }
   .accordion-header {
     display: flex; align-items: center; gap: 16px;
-    padding: 16px 20px; cursor: pointer;
-    border-radius: 4px; border: 1px solid var(--border);
+    padding: 18px 22px; cursor: pointer;
+    border-radius: 8px; border: 1.5px solid var(--border);
     background: var(--surface); transition: all 0.2s;
     user-select: none;
   }
-  .accordion-header.open { border-radius: 4px 4px 0 0; }
-  .accordion-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .accordion-header.open { border-radius: 8px 8px 0 0; }
+  .accordion-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .accordion-meta { flex: 1; }
-  .accordion-phase-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Cormorant Garamond', serif; }
-  .accordion-title { font-size: 15px; color: #f0e8d8; margin-top: 3px; }
-  .accordion-toggle { color: #555; font-size: 18px; }
-  .accordion-body {
-    display: none; padding: 16px 20px 20px;
-    border-radius: 0 0 4px 4px;
-    border-top: none;
-  }
+  .accordion-phase-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+  .accordion-title { font-size: 17px; color: #1a1a1a; margin-top: 4px; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .accordion-toggle { color: #aaa; font-size: 22px; font-weight: 300; }
+  .accordion-body { display: none; padding: 18px 22px 22px; border-radius: 0 0 8px 8px; border-top: none; }
   .accordion-body.open { display: block; }
   .accordion-item {
     display: flex; gap: 12px; align-items: flex-start;
-    padding: 8px 0; font-size: 13px; color: var(--text-dim); line-height: 1.6;
+    padding: 9px 0; font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500;
   }
-  .accordion-item:not(:last-child) { border-bottom: 1px solid #ffffff08; }
+  .accordion-item:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.06); }
 
   /* Capital plan */
-  .capital-cards { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-  .capital-card {
-    flex: 1 1 120px; border-radius: 4px;
-    padding: 20px 16px; text-align: center;
-  }
-  .capital-card-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; }
-  .capital-card-value { color: #f0e8d8; }
-  .capital-card-sub { font-size: 11px; color: #555; margin-top: 4px; }
+  .capital-cards { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+  .capital-card { flex: 1 1 120px; border-radius: 8px; padding: 22px 16px; text-align: center; border: 1.5px solid; }
+  .capital-card-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+  .capital-card-value { color: #1a1a1a; font-weight: 800; font-family: 'Inter', sans-serif; }
+  .capital-card-sub { font-size: 12px; color: var(--text-faint); margin-top: 6px; font-weight: 500; }
 
-  .allocation-box {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px; padding: 20px; margin-bottom: 12px;
-  }
-  .allocation-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; }
-  .alloc-row { margin-bottom: 14px; }
-  .alloc-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
-  .alloc-bar-bg { height: 4px; background: #1e1c18; border-radius: 2px; margin-bottom: 4px; }
-  .alloc-bar-fill { height: 100%; border-radius: 2px; }
-  .alloc-desc { font-size: 11px; color: var(--text-faint); }
-  .alloc-footer {
-    margin-top: 8px; padding-top: 12px;
-    border-top: 1px solid var(--border);
-    font-size: 12px; color: #7a8f7a; line-height: 1.7;
-  }
+  .allocation-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; margin-bottom: 14px; }
+  .allocation-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; font-weight: 700; }
+  .alloc-row { margin-bottom: 16px; }
+  .alloc-header { display: flex; justify-content: space-between; margin-bottom: 7px; font-size: 14px; font-weight: 600; }
+  .alloc-bar-bg { height: 6px; background: #e8e6e2; border-radius: 3px; margin-bottom: 5px; }
+  .alloc-bar-fill { height: 100%; border-radius: 3px; }
+  .alloc-desc { font-size: 12px; color: var(--text-faint); font-weight: 500; }
+  .alloc-footer { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--green); line-height: 1.7; font-weight: 600; }
 
   .scaling-rule {
-    background: rgba(160,196,160,0.03);
-    border: 1px solid rgba(160,196,160,0.2);
-    border-left: 3px solid var(--green);
-    border-radius: 0 4px 4px 0;
-    padding: 16px 20px; margin-bottom: 12px;
+    background: var(--green-light); border: 1.5px solid var(--green-border);
+    border-left: 4px solid var(--green); border-radius: 0 8px 8px 0;
+    padding: 18px 22px; margin-bottom: 14px;
   }
-  .scaling-label { font-size: 9px; letter-spacing: 3px; color: var(--green); text-transform: uppercase; margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; }
-  .scaling-text { font-size: 13px; color: var(--text-dim); line-height: 1.8; }
-  .scaling-example { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+  .scaling-label { font-size: 10px; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+  .scaling-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 600; }
+  .scaling-example { font-size: 13px; color: var(--text-muted); margin-top: 7px; font-weight: 500; }
 
-  .milestones {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px; padding: 20px;
-  }
-  .milestones-label { font-size: 9px; letter-spacing: 3px; color: var(--green); text-transform: uppercase; margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; }
-  .milestone-row {
-    display: flex; align-items: center; gap: 14px; padding: 10px 0;
-  }
-  .milestone-row:not(:last-child) { border-bottom: 1px solid #1e1c18; }
-  .milestone-year { font-size: 11px; color: var(--text-faint); width: 56px; flex-shrink: 0; }
-  .milestone-bar-bg { flex: 1; height: 3px; background: #1e1c18; border-radius: 2px; }
-  .milestone-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--green), var(--gold)); }
-  .milestone-range { font-size: 12px; color: #d0c8b8; width: 120px; text-align: right; flex-shrink: 0; }
-  .milestones-footer { margin-top: 14px; padding-top: 12px; border-top: 1px solid #1e1c18; font-size: 12px; color: #7a5555; line-height: 1.7; }
+  .milestones { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; }
+  .milestones-label { font-size: 10px; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 18px; font-weight: 700; }
+  .milestone-row { display: flex; align-items: center; gap: 14px; padding: 11px 0; }
+  .milestone-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+  .milestone-year { font-size: 13px; color: var(--text-muted); width: 60px; flex-shrink: 0; font-weight: 600; }
+  .milestone-bar-bg { flex: 1; height: 5px; background: #e8e6e2; border-radius: 3px; }
+  .milestone-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); }
+  .milestone-range { font-size: 13px; color: #1a1a1a; width: 130px; text-align: right; flex-shrink: 0; font-weight: 700; }
+  .milestones-footer { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: #aa3333; line-height: 1.7; font-weight: 600; }
 
   .savings-quote {
-    margin-top: 12px; padding: 14px 20px;
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 4px; text-align: center;
-    font-size: 13px; color: #888; font-style: italic;
+    margin-top: 14px; padding: 16px 22px;
+    background: #fffdf5; border: 1.5px solid var(--gold-border);
+    border-radius: 8px; text-align: center;
+    font-size: 15px; color: var(--gold); font-style: italic; font-weight: 700;
   }
 
-  /* Rental */
   .rental-box {
-    border: 1px solid rgba(196,144,209,0.2);
-    border-left: 3px solid var(--purple);
-    padding: 20px 24px; background: rgba(196,144,209,0.03);
-    border-radius: 0 4px 4px 0;
+    border: 1.5px solid var(--purple-border); border-left: 4px solid var(--purple);
+    padding: 22px 26px; background: var(--purple-light); border-radius: 0 8px 8px 0;
   }
-  .rental-text { font-size: 14px; color: #d0c8b8; line-height: 1.8; }
-  .rental-note { margin-top: 12px; font-size: 12px; color: #7a6a8a; line-height: 1.7; }
+  .rental-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 600; }
+  .rental-note { margin-top: 14px; font-size: 13px; color: var(--purple); line-height: 1.7; font-weight: 600; }
 
-  /* Footer */
-  .footer { text-align: center; margin-top: 48px; font-size: 11px; color: #444; letter-spacing: 2px; font-family: 'Cormorant Garamond', serif; }
+  .footer {
+    text-align: center; margin-top: 52px; padding-top: 24px;
+    border-top: 2px solid #1a1a1a;
+    font-size: 12px; color: #1a1a1a; letter-spacing: 4px;
+    font-weight: 800; font-family: 'Inter', sans-serif; text-transform: uppercase;
+  }
 </style>
 </head>
 <body>
@@ -228,91 +219,88 @@
   <div class="header">
     <div class="header-label">Arthur's Wealth Blueprint</div>
     <h1>The Full System</h1>
-    <div class="header-rule"></div>
+    <div class="header-sub">Career · Business · Property — All Three Running</div>
   </div>
 
-  <!-- Step 1: IT Career -->
-  <div class="section-label" style="color: var(--gold);">Step 1 — IT Career Path · The Foundation</div>
+  <!-- Step 1: Career Path -->
+  <div class="section-label" style="color: var(--gold);">Step 1 — Career Path · The Foundation</div>
 
   <div class="timeline">
     <div class="timeline-line"></div>
 
-    <!-- Phase 1 -->
     <div class="timeline-item">
       <div class="timeline-dot-wrap">
-        <div class="timeline-dot" style="background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,0.4);"></div>
+        <div class="timeline-dot" style="background:var(--gold);color:var(--gold);"></div>
       </div>
-      <div class="timeline-card" style="background:rgba(201,168,76,0.03);border-color:rgba(201,168,76,0.2);border-top-color:var(--gold);">
-        <div class="phase-meta" style="color:var(--gold);">Phase 1 &nbsp;·&nbsp; 0 – 2.5 Years</div>
+      <div class="timeline-card" style="background:var(--gold-light);border-color:var(--gold-border);border-top-color:var(--gold);">
+        <div class="phase-meta" style="color:var(--gold);">Bachelor's Degree &nbsp;·&nbsp; Now — 4th Year</div>
         <div class="phase-title-row">
-          <div class="phase-name">Puerto Princesa</div>
-          <div class="phase-salary" style="color:var(--gold);">₱18K – ₱25K<span class="phase-salary-unit" style="color:rgba(201,168,76,0.55);">/mo</span></div>
+          <div class="phase-name">BSIT · Building the Base</div>
         </div>
         <ul class="phase-items">
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Entry-level IT: Support / Service Desk or Junior Dev / Data Analyst</li>
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Build real experience from actual work, not just school projects</li>
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Thesis + projects become your portfolio foundation</li>
-          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--gold);">→</span>Upgrade skills on the side continuously</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Secure National ID now — 2nd year IT student</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Avail Pag-IBIG 1 voluntary contributions immediately</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Open BPI debit card — start the financial infrastructure early</li>
+          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--gold);">→</span>Graduate BSIT → transition directly into MPA, no gap</li>
         </ul>
-        <div class="phase-goal" style="border-top:1px solid rgba(201,168,76,0.13);color:var(--gold);">◆ &nbsp;Gain experience · Build proof of skills · Reach ₱20K+ stability</div>
+        <div class="phase-goal" style="border-top:1px solid rgba(184,134,11,0.2);color:var(--gold);">◆ &nbsp;Set up credentials, ID, and contributions — before you even need them.</div>
       </div>
     </div>
 
-    <!-- Phase 2 -->
     <div class="timeline-item">
       <div class="timeline-dot-wrap">
-        <div class="timeline-dot" style="background:var(--blue);box-shadow:0 0 10px rgba(138,180,212,0.4);"></div>
+        <div class="timeline-dot" style="background:var(--blue);color:var(--blue);"></div>
       </div>
-      <div class="timeline-card" style="background:rgba(138,180,212,0.03);border-color:rgba(138,180,212,0.2);border-top-color:var(--blue);">
-        <div class="phase-meta" style="color:var(--blue);">Phase 2 &nbsp;·&nbsp; ~2.5 Years</div>
+      <div class="timeline-card" style="background:var(--blue-light);border-color:var(--blue-border);border-top-color:var(--blue);">
+        <div class="phase-meta" style="color:var(--blue);">Master's Degree &nbsp;·&nbsp; MPA Year 1 – 2</div>
         <div class="phase-title-row">
-          <div class="phase-name">Transition Point</div>
+          <div class="phase-name">Master of Public Administration</div>
         </div>
         <ul class="phase-items">
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>You are no longer entry-level</li>
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>2+ years of real workplace experience</li>
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Portfolio: thesis + systems + analytics/dev work</li>
-          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--blue);">→</span>Ready to leverage — not restart</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Enter MPA directly after BSIT graduation</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Continue Pag-IBIG 1 contributions throughout</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Final 15 units (2nd year) — apply for Pag-IBIG Funds rank & file marketing position</li>
+          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--blue);">→</span>Graduate MPA — enter workforce with credential already in hand</li>
         </ul>
+        <div class="phase-goal" style="border-top:1px solid rgba(26,82,118,0.15);color:var(--blue);">◆ &nbsp;You're not entering as a fresh grad — you're entering with the exact tool Pag-IBIG promotes.</div>
       </div>
     </div>
 
-    <!-- Phase 3 -->
     <div class="timeline-item">
       <div class="timeline-dot-wrap">
-        <div class="timeline-dot" style="background:var(--purple);box-shadow:0 0 10px rgba(196,144,209,0.4);"></div>
+        <div class="timeline-dot" style="background:var(--purple);color:var(--purple);"></div>
       </div>
-      <div class="timeline-card" style="background:rgba(196,144,209,0.03);border-color:rgba(196,144,209,0.2);border-top-color:var(--purple);">
-        <div class="phase-meta" style="color:var(--purple);">Phase 3 &nbsp;·&nbsp; 2.5 – 3 Years</div>
+      <div class="timeline-card" style="background:var(--purple-light);border-color:var(--purple-border);border-top-color:var(--purple);">
+        <div class="phase-meta" style="color:var(--purple);">Corporate Ladder &nbsp;·&nbsp; ~8 Years Span</div>
         <div class="phase-title-row">
-          <div class="phase-name">Manila Move</div>
-          <div class="phase-salary" style="color:var(--purple);">₱30K – ₱50K<span class="phase-salary-unit" style="color:rgba(196,144,209,0.55);">/mo</span></div>
+          <div class="phase-name">Pag-IBIG Funds Climb</div>
+          <div class="phase-salary" style="color:var(--purple);">₱20K<span class="phase-salary-unit">entry /mo</span></div>
         </div>
         <ul class="phase-items">
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--purple);">→</span>Apply to: Data Analyst, Junior Software Engineer, or higher-tier IT Support</li>
-          <li class="phase-item"><span class="phase-arrow" style="color:var(--purple);">→</span>Your PPC experience becomes your leverage, not your limitation</li>
-          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--purple);">→</span>Skills + interview performance determine the ceiling</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--purple);">→</span>Year 1 — frontline marketing, learn the institution from the ground up</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--purple);">→</span>Build internal credibility, visibility, and institutional relationships</li>
+          <li class="phase-item"><span class="phase-arrow" style="color:var(--purple);">→</span>MPA + performance → climb to Supervisor level</li>
+          <li class="phase-item" style="border:none;"><span class="phase-arrow" style="color:var(--purple);">→</span>Continue the climb → Manager level, leveraging credential and track record</li>
         </ul>
-        <div class="phase-goal" style="border-top:1px solid rgba(196,144,209,0.13);color:var(--purple);">◆ &nbsp;You're not restarting in Manila — you're upgrading your position.</div>
+        <div class="phase-goal" style="border-top:1px solid rgba(108,52,131,0.15);color:var(--purple);">◆ &nbsp;Slower than private sector — but stability, benefits, and leverage compound differently.</div>
       </div>
     </div>
   </div>
 
-  <!-- Core Strategy -->
   <div class="core-strategy">
     <div class="core-label">Core Strategy</div>
     <div class="core-cols">
       <div class="core-col" style="border-left-color:var(--gold);">
-        <div class="core-col-label" style="color:var(--gold);">PPC</div>
-        <div class="core-col-desc">Foundation + low pressure growth</div>
-      </div>
-      <div class="core-col" style="border-left-color:var(--purple);">
-        <div class="core-col-label" style="color:var(--purple);">Manila</div>
-        <div class="core-col-desc">Leverage experience for higher pay</div>
+        <div class="core-col-label" style="color:var(--gold);">BSIT → MPA</div>
+        <div class="core-col-desc">Credential stack built before employment begins</div>
       </div>
       <div class="core-col" style="border-left-color:var(--blue);">
-        <div class="core-col-label" style="color:var(--blue);">Skills</div>
-        <div class="core-col-desc">Matter more than time spent</div>
+        <div class="core-col-label" style="color:var(--blue);">Insider Edge</div>
+        <div class="core-col-desc">Sister at Pag-IBIG — real knowledge, not brochure version</div>
+      </div>
+      <div class="core-col" style="border-left-color:var(--purple);">
+        <div class="core-col-label" style="color:var(--purple);">Patience</div>
+        <div class="core-col-desc">Government rewards consistency — play the long game</div>
       </div>
     </div>
   </div>
@@ -320,110 +308,110 @@
   <div class="divider"></div>
 
   <!-- Step 2: Revenue Streams -->
-  <div class="section-label" style="color:#888;">Step 2 — Three Revenue Streams</div>
+  <div class="section-label" style="color:#555;">Step 2 — Three Revenue Streams</div>
   <div class="streams">
-    <div class="stream-card" style="background:rgba(201,168,76,0.03);border-color:rgba(201,168,76,0.2);border-top-color:var(--gold);">
-      <div class="stream-icon">💼</div>
+    <div class="stream-card" style="background:var(--gold-light);border-color:var(--gold-border);border-top-color:var(--gold);">
+      <div class="stream-icon">🏛️</div>
       <div class="stream-type" style="color:var(--gold);">Primary</div>
-      <div class="stream-name">IT Career</div>
-      <div class="stream-desc">Safe base. Funds Pag-IBIG, savings, and capital.</div>
+      <div class="stream-name">Pag-IBIG Career</div>
+      <div class="stream-desc">Stable government income. Funds savings, contributions, and capital.</div>
     </div>
-    <div class="stream-card" style="background:rgba(160,196,160,0.03);border-color:rgba(160,196,160,0.2);border-top-color:var(--green);">
+    <div class="stream-card" style="background:var(--green-light);border-color:var(--green-border);border-top-color:var(--green);">
       <div class="stream-icon">🚐</div>
       <div class="stream-type" style="color:var(--green);">Side Hustle 1</div>
       <div class="stream-name">Multicab Business</div>
-      <div class="stream-desc">Active side cash flow. ₱1M capital target by 27.</div>
+      <div class="stream-desc">Active side cash flow. ₱1M capital target by age 30.</div>
     </div>
-    <div class="stream-card" style="background:rgba(196,144,209,0.03);border-color:rgba(196,144,209,0.2);border-top-color:var(--purple);">
+    <div class="stream-card" style="background:var(--purple-light);border-color:var(--purple-border);border-top-color:var(--purple);">
       <div class="stream-icon">🏢</div>
       <div class="stream-type" style="color:var(--purple);">Side Hustle 2</div>
       <div class="stream-name">Apartment Rental</div>
-      <div class="stream-desc">Passive income. Tenants pay the Pag-IBIG loan.</div>
+      <div class="stream-desc">Passive income. Tenants pay the Pag-IBIG housing loan.</div>
     </div>
   </div>
 
   <div class="divider"></div>
 
   <!-- Step 3: How They Connect -->
-  <div class="section-label" style="color:#888;">Step 3 — How They Connect</div>
+  <div class="section-label" style="color:#555;">Step 3 — How They Connect</div>
   <div class="connection">
-    <div><span style="color:var(--gold);">IT Salary</span> → funds Pag-IBIG contributions + multicab capital savings</div>
-    <div><span style="color:var(--green);">Multicab Cash Flow</span> → builds apartment rental buffer fund</div>
-    <div><span style="color:var(--purple);">Rental Income</span> → services Pag-IBIG loan, builds long-term equity</div>
-    <div class="connection-footer">◆ &nbsp;Each stream funds and protects the others.</div>
+    <div><span style="color:var(--gold);font-weight:700;">Government Salary</span> → funds Pag-IBIG contributions + multicab capital savings</div>
+    <div><span style="color:var(--green);font-weight:700;">Multicab Cash Flow</span> → builds apartment rental buffer fund</div>
+    <div><span style="color:var(--purple);font-weight:700;">Rental Income</span> → services Pag-IBIG housing loan, builds long-term equity</div>
+    <div class="connection-footer" style="color:var(--gold);">◆ &nbsp;Each stream funds and protects the others.</div>
   </div>
 
   <div class="divider"></div>
 
   <!-- Step 4: Execution Timeline -->
-  <div class="section-label" style="color:#888;">Step 4 — Execution Timeline · Tap to Expand</div>
-  <div class="accordion" id="accordion">
+  <div class="section-label" style="color:#555;">Step 4 — Execution Timeline · Tap to Expand</div>
+  <div class="accordion">
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#c9a84c" data-index="0" onclick="toggle(this)">
+      <div class="accordion-header" data-color="#b8860b" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--gold);"></div>
         <div class="accordion-meta">
-          <div class="accordion-phase-label" style="color:var(--gold);">PHASE 1 &nbsp;·&nbsp; Now — Before Employment</div>
-          <div class="accordion-title">Build the Foundation</div>
+          <div class="accordion-phase-label" style="color:var(--gold);">PHASE 1 &nbsp;·&nbsp; Now — 2nd Year BSIT</div>
+          <div class="accordion-title">Build the Infrastructure</div>
         </div>
         <div class="accordion-toggle">+</div>
       </div>
-      <div class="accordion-body" style="background:rgba(201,168,76,0.03);border:1px solid rgba(201,168,76,0.2);">
-        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;margin-top:2px;">→</span>Register as Pag-IBIG voluntary member</div>
-        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;margin-top:2px;">→</span>Start 24-month contribution clock immediately</div>
-        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;margin-top:2px;">→</span>Study IT/software programming</div>
-        <div class="accordion-item" style="border:none;"><span style="color:var(--gold);flex-shrink:0;margin-top:2px;">→</span>Research multicab market & family contacts</div>
+      <div class="accordion-body" style="background:var(--gold-light);border:1.5px solid var(--gold-border);">
+        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;font-weight:700;">→</span>Secure National ID — do this now, not later</div>
+        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;font-weight:700;">→</span>Open BPI debit card — start financial systems early</div>
+        <div class="accordion-item"><span style="color:var(--gold);flex-shrink:0;font-weight:700;">→</span>Register Pag-IBIG 1 as voluntary member — clock starts now</div>
+        <div class="accordion-item" style="border:none;"><span style="color:var(--gold);flex-shrink:0;font-weight:700;">→</span>Finish BSIT strong, transition directly into MPA</div>
       </div>
     </div>
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#a0c4a0" data-index="1" onclick="toggle(this)">
-        <div class="accordion-dot" style="background:var(--green);"></div>
-        <div class="accordion-meta">
-          <div class="accordion-phase-label" style="color:var(--green);">PHASE 2 &nbsp;·&nbsp; Years 1 – 3</div>
-          <div class="accordion-title">Employment Window</div>
-        </div>
-        <div class="accordion-toggle">+</div>
-      </div>
-      <div class="accordion-body" style="background:rgba(160,196,160,0.03);border:1px solid rgba(160,196,160,0.2);">
-        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;margin-top:2px;">→</span>Stable IT employment — the safe base</div>
-        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;margin-top:2px;">→</span>Build credit history & loan eligibility</div>
-        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;margin-top:2px;">→</span>Continue Pag-IBIG contributions consistently</div>
-        <div class="accordion-item" style="border:none;"><span style="color:var(--green);flex-shrink:0;margin-top:2px;">→</span>Save aggressively toward ₱1M multicab capital</div>
-      </div>
-    </div>
-
-    <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#8ab4d4" data-index="2" onclick="toggle(this)">
+      <div class="accordion-header" data-color="#1a5276" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--blue);"></div>
         <div class="accordion-meta">
-          <div class="accordion-phase-label" style="color:var(--blue);">PHASE 3 &nbsp;·&nbsp; Age ~24 – 27</div>
-          <div class="accordion-title">Launch Side Hustles</div>
+          <div class="accordion-phase-label" style="color:var(--blue);">PHASE 2 &nbsp;·&nbsp; MPA Year 1 – 2</div>
+          <div class="accordion-title">Stack the Credentials</div>
         </div>
         <div class="accordion-toggle">+</div>
       </div>
-      <div class="accordion-body" style="background:rgba(138,180,212,0.03);border:1px solid rgba(138,180,212,0.2);">
-        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;margin-top:2px;">→</span>Establish multicab/van transport business</div>
-        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;margin-top:2px;">→</span>Leverage family experience in the space</div>
-        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;margin-top:2px;">→</span>Multicab cash flow builds rental buffer fund</div>
-        <div class="accordion-item" style="border:none;"><span style="color:var(--blue);flex-shrink:0;margin-top:2px;">→</span>Apply for Pag-IBIG housing loan (skip private lenders)</div>
+      <div class="accordion-body" style="background:var(--blue-light);border:1.5px solid var(--blue-border);">
+        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;font-weight:700;">→</span>Enter MPA immediately after BSIT — no gap</div>
+        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;font-weight:700;">→</span>Continue Pag-IBIG 1 contributions throughout</div>
+        <div class="accordion-item"><span style="color:var(--blue);flex-shrink:0;font-weight:700;">→</span>Final 15 units — apply for Pag-IBIG Funds rank & file marketing role</div>
+        <div class="accordion-item" style="border:none;"><span style="color:var(--blue);flex-shrink:0;font-weight:700;">→</span>Graduate MPA — enter employment with credential already secured</div>
       </div>
     </div>
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#c490d1" data-index="3" onclick="toggle(this)">
-        <div class="accordion-dot" style="background:var(--purple);"></div>
+      <div class="accordion-header" data-color="#2d6a2d" onclick="toggle(this)">
+        <div class="accordion-dot" style="background:var(--green);"></div>
         <div class="accordion-meta">
-          <div class="accordion-phase-label" style="color:var(--purple);">PHASE 4 &nbsp;·&nbsp; Age 27 – 28 Onward</div>
-          <div class="accordion-title">The Full System</div>
+          <div class="accordion-phase-label" style="color:var(--green);">PHASE 3 &nbsp;·&nbsp; Years 1 – 4 at Pag-IBIG</div>
+          <div class="accordion-title">Frontline to Supervisor</div>
         </div>
         <div class="accordion-toggle">+</div>
       </div>
-      <div class="accordion-body" style="background:rgba(196,144,209,0.03);border:1px solid rgba(196,144,209,0.2);">
-        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;margin-top:2px;">→</span>IT career — stable salary, funds everything</div>
-        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;margin-top:2px;">→</span>Multicab — active cash flow stream</div>
-        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;margin-top:2px;">→</span>Apartment rental — passive income, tenant-serviced loan</div>
-        <div class="accordion-item" style="border:none;"><span style="color:var(--purple);flex-shrink:0;margin-top:2px;">→</span>All three feeding into each other</div>
+      <div class="accordion-body" style="background:var(--green-light);border:1.5px solid var(--green-border);">
+        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;font-weight:700;">→</span>Year 1 — frontline marketing, learn the institution deeply</div>
+        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;font-weight:700;">→</span>Build internal visibility — deliver, don't just show up</div>
+        <div class="accordion-item"><span style="color:var(--green);flex-shrink:0;font-weight:700;">→</span>Save aggressively — multicab capital building in parallel</div>
+        <div class="accordion-item" style="border:none;"><span style="color:var(--green);flex-shrink:0;font-weight:700;">→</span>MPA credential + performance → push for Supervisor level</div>
+      </div>
+    </div>
+
+    <div class="accordion-item-wrap">
+      <div class="accordion-header" data-color="#6c3483" onclick="toggle(this)">
+        <div class="accordion-dot" style="background:var(--purple);"></div>
+        <div class="accordion-meta">
+          <div class="accordion-phase-label" style="color:var(--purple);">PHASE 4 &nbsp;·&nbsp; Years 4 – 8+ at Pag-IBIG</div>
+          <div class="accordion-title">Supervisor to Manager · The Full System Running</div>
+        </div>
+        <div class="accordion-toggle">+</div>
+      </div>
+      <div class="accordion-body" style="background:var(--purple-light);border:1.5px solid var(--purple-border);">
+        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;font-weight:700;">→</span>Supervisor level secured — salary increase, more authority</div>
+        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;font-weight:700;">→</span>Multicab business operational — active cash flow running alongside career</div>
+        <div class="accordion-item"><span style="color:var(--purple);flex-shrink:0;font-weight:700;">→</span>Pag-IBIG housing loan — apartment rental generating passive income</div>
+        <div class="accordion-item" style="border:none;"><span style="color:var(--purple);flex-shrink:0;font-weight:700;">→</span>Manager level — all three streams running, each funding the others</div>
       </div>
     </div>
 
@@ -431,41 +419,41 @@
 
   <div class="divider"></div>
 
-  <!-- Step 5: Multicab Capital Plan -->
+  <!-- Step 5: Multicab Capital -->
   <div class="section-label" style="color:var(--green);">Step 5 — ₱1M Capital Plan · Multicab Business</div>
 
   <div class="capital-cards">
-    <div class="capital-card" style="background:rgba(160,196,160,0.06);border:1px solid rgba(160,196,160,0.2);">
+    <div class="capital-card" style="background:var(--green-light);border-color:var(--green-border);">
       <div class="capital-card-label" style="color:var(--green);">Target</div>
-      <div class="capital-card-value" style="font-size:28px;">₱1M</div>
-      <div class="capital-card-sub">by age 27</div>
+      <div class="capital-card-value" style="font-size:30px;">₱1M</div>
+      <div class="capital-card-sub">by age 30</div>
     </div>
-    <div class="capital-card" style="background:var(--surface);border:1px solid var(--border);">
-      <div class="capital-card-label" style="color:#888;">5 Years</div>
-      <div class="capital-card-value" style="font-size:22px;">₱16,700</div>
+    <div class="capital-card" style="background:var(--surface);border-color:var(--border);">
+      <div class="capital-card-label" style="color:var(--text-faint);">5 Years</div>
+      <div class="capital-card-value" style="font-size:24px;">₱16,700</div>
       <div class="capital-card-sub">/ month</div>
     </div>
-    <div class="capital-card" style="background:var(--surface);border:1px solid var(--border);">
-      <div class="capital-card-label" style="color:#888;">6 Years</div>
-      <div class="capital-card-value" style="font-size:22px;">₱13,900</div>
+    <div class="capital-card" style="background:var(--surface);border-color:var(--border);">
+      <div class="capital-card-label" style="color:var(--text-faint);">6 Years</div>
+      <div class="capital-card-value" style="font-size:24px;">₱13,900</div>
       <div class="capital-card-sub">/ month</div>
     </div>
   </div>
 
   <div class="allocation-box">
-    <div class="allocation-label" style="color:var(--green);">Income Allocation (Non-Negotiable)</div>
+    <div class="allocation-label" style="color:var(--green);">Income Allocation — Non-Negotiable</div>
     <div class="alloc-row">
-      <div class="alloc-header"><span style="color:#d0c8b8;">Needs</span><span style="color:#888;">50–60%</span></div>
-      <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:55%;background:#888;"></div></div>
+      <div class="alloc-header"><span style="color:#1a1a1a;">Needs</span><span style="color:var(--text-muted);">50–60%</span></div>
+      <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:55%;background:#aaaaaa;"></div></div>
       <div class="alloc-desc">Food, transport, basic lifestyle</div>
     </div>
     <div class="alloc-row">
-      <div class="alloc-header"><span style="color:#d0c8b8;">Savings</span><span style="color:var(--green);">20–30%</span></div>
+      <div class="alloc-header"><span style="color:#1a1a1a;">Savings</span><span style="color:var(--green);">20–30%</span></div>
       <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:25%;background:var(--green);"></div></div>
       <div class="alloc-desc">Your ₱14K–₱17K monthly target</div>
     </div>
     <div class="alloc-row" style="margin-bottom:0;">
-      <div class="alloc-header"><span style="color:#d0c8b8;">Investments</span><span style="color:var(--blue);">10–20%</span></div>
+      <div class="alloc-header"><span style="color:#1a1a1a;">Investments</span><span style="color:var(--blue);">10–20%</span></div>
       <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:15%;background:var(--blue);"></div></div>
       <div class="alloc-desc">Stocks, small growth plays</div>
     </div>
@@ -474,7 +462,7 @@
 
   <div class="scaling-rule">
     <div class="scaling-label">Scaling Rule — Where Most People Fail</div>
-    <div class="scaling-text">Every salary increase → at least <span style="color:#f0e8d8;">50% goes to savings</span>, not spending.</div>
+    <div class="scaling-text">Every salary increase → at least <span style="color:#1a1a1a;">50% goes to savings</span>, not spending.</div>
     <div class="scaling-example">Example: +₱10K raise = ₱5K added to savings. Not clothes. Not eating out.</div>
   </div>
 
@@ -514,8 +502,7 @@
     <div class="rental-note">◆ &nbsp;Pag-IBIG loan only. Skip private lenders. Your sister at Pag-IBIG is your insider advantage — use her knowledge, not shortcuts.</div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">NOT A PLAN — A SYSTEM</div>
+  <div class="footer">Not a plan — a system</div>
 
 </div>
 
@@ -524,8 +511,6 @@
     const body = header.nextElementSibling;
     const isOpen = body.classList.contains('open');
     const color = header.dataset.color;
-
-    // Close all
     document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
     document.querySelectorAll('.accordion-header').forEach(h => {
       h.classList.remove('open');
@@ -533,12 +518,10 @@
       h.style.borderColor = 'var(--border)';
       h.querySelector('.accordion-toggle').textContent = '+';
     });
-
     if (!isOpen) {
       body.classList.add('open');
       header.classList.add('open');
-      header.style.background = color + '12';
-      header.style.borderColor = color + '55';
+      header.style.borderColor = color;
       header.querySelector('.accordion-toggle').textContent = '−';
     }
   }
