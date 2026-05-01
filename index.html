@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Arthur's Wealth Blueprint</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
+  /* ── LIGHT THEME ── */
+  [data-theme="light"] {
     --gold: #b8860b;
     --gold-light: #fdf6e3;
     --gold-border: #e8c84a;
@@ -29,6 +30,41 @@
     --text-dim: #333333;
     --text-muted: #555555;
     --text-faint: #888888;
+    --header-rule: #1a1a1a;
+    --toggle-bg: #f0ede8;
+    --toggle-border: #d0cdc8;
+    --toggle-icon: #555;
+    --bar-bg: #e8e6e2;
+    --red: #aa3333;
+  }
+
+  /* ── DARK THEME ── */
+  [data-theme="dark"] {
+    --gold: #c9a84c;
+    --gold-light: #1c1700;
+    --gold-border: #5a4a10;
+    --green: #7dba7d;
+    --green-light: #0a140a;
+    --green-border: #2d4a2d;
+    --blue: #7db8d8;
+    --blue-light: #080e14;
+    --blue-border: #1a3a52;
+    --purple: #c490d1;
+    --purple-light: #100814;
+    --purple-border: #4a2060;
+    --bg: #0e0c0a;
+    --surface: #13110e;
+    --border: #2a2520;
+    --text: #e8e0d0;
+    --text-dim: #b0a898;
+    --text-muted: #9a9080;
+    --text-faint: #666;
+    --header-rule: #3a3530;
+    --toggle-bg: #1e1c18;
+    --toggle-border: #3a3530;
+    --toggle-icon: #aaa;
+    --bar-bg: #1e1c18;
+    --red: #cc6666;
   }
 
   body {
@@ -37,193 +73,143 @@
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
     padding: 40px 24px;
+    transition: background 0.3s, color 0.3s;
   }
 
   .wrap { max-width: 740px; margin: 0 auto; }
 
+  /* Toggle */
+  .theme-toggle {
+    position: fixed; top: 18px; right: 18px; z-index: 999;
+    background: var(--toggle-bg); border: 1.5px solid var(--toggle-border);
+    border-radius: 50px; padding: 6px 14px;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 700; color: var(--toggle-icon);
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .theme-toggle:hover { opacity: 0.85; }
+  .toggle-icon { font-size: 15px; }
+
   /* Header */
-  .header { text-align: center; margin-bottom: 52px; padding-bottom: 32px; border-bottom: 2px solid #1a1a1a; }
-  .header-label {
-    font-size: 11px; letter-spacing: 5px; color: var(--gold);
-    text-transform: uppercase; margin-bottom: 14px;
-    font-family: 'Inter', sans-serif; font-weight: 700;
-  }
-  .header h1 {
-    font-size: 36px; font-weight: 800; color: #1a1a1a; line-height: 1.15;
-    font-family: 'Playfair Display', serif;
-  }
+  .header { text-align: center; margin-bottom: 52px; padding-bottom: 32px; border-bottom: 2px solid var(--header-rule); }
+  .header-label { font-size: 11px; letter-spacing: 5px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; font-weight: 700; }
+  .header h1 { font-size: 36px; font-weight: 800; color: var(--text); line-height: 1.15; font-family: 'Playfair Display', serif; }
   .header-sub { font-size: 14px; color: var(--text-muted); margin-top: 10px; font-weight: 500; }
 
-  /* Section label */
   .section-label {
     font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    margin-bottom: 22px; font-weight: 700; font-family: 'Inter', sans-serif;
+    margin-bottom: 22px; font-weight: 700;
     display: flex; align-items: center; gap: 12px;
   }
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* Divider */
   .divider { width: 100%; height: 1px; background: var(--border); margin: 48px 0; }
 
   /* Timeline */
   .timeline { position: relative; }
-  .timeline-line {
-    position: absolute; left: 20px; top: 12px; bottom: 12px; width: 2px;
-    background: linear-gradient(180deg, var(--gold-border), var(--blue-border), var(--purple-border));
-    z-index: 0;
-  }
+  .timeline-line { position: absolute; left: 20px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(180deg, var(--gold-border), var(--blue-border), var(--purple-border)); z-index: 0; }
   .timeline-item { display: flex; gap: 20px; margin-bottom: 16px; position: relative; z-index: 1; }
   .timeline-dot-wrap { width: 40px; flex-shrink: 0; display: flex; align-items: flex-start; padding-top: 18px; }
-  .timeline-dot { width: 16px; height: 16px; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 0 2px currentColor; }
-  .timeline-card {
-    flex: 1; border-radius: 8px; padding: 20px 22px;
-    border: 1.5px solid; border-top-width: 4px;
-  }
-  .phase-meta {
-    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 8px; font-weight: 700; font-family: 'Inter', sans-serif;
-  }
+  .timeline-dot { width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 0 2px currentColor; transition: border-color 0.3s; }
+  .timeline-card { flex: 1; border-radius: 8px; padding: 20px 22px; border: 1.5px solid; border-top-width: 4px; transition: background 0.3s, border-color 0.3s; }
+  .phase-meta { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
   .phase-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
-  .phase-name { font-size: 20px; font-weight: 700; color: #1a1a1a; font-family: 'Playfair Display', serif; }
-  .phase-salary { font-size: 22px; font-weight: 800; font-family: 'Inter', sans-serif; }
+  .phase-name { font-size: 20px; font-weight: 700; color: var(--text); font-family: 'Playfair Display', serif; }
+  .phase-salary { font-size: 22px; font-weight: 800; }
   .phase-salary-unit { font-size: 12px; margin-left: 3px; font-weight: 500; opacity: 0.6; }
   .phase-items { list-style: none; }
-  .phase-item {
-    display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
-    font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500;
-  }
-  .phase-item:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .phase-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500; }
+  .phase-item:not(:last-child) { border-bottom: 1px solid rgba(128,128,128,0.12); }
   .phase-arrow { flex-shrink: 0; font-weight: 700; }
-  .phase-goal {
-    margin-top: 14px; padding-top: 12px;
-    font-size: 13px; font-style: italic; font-weight: 600;
-  }
+  .phase-goal { margin-top: 14px; padding-top: 12px; font-size: 13px; font-style: italic; font-weight: 600; }
 
-  /* Core strategy */
-  .core-strategy {
-    background: var(--surface); border: 1.5px solid var(--border);
-    border-radius: 8px; padding: 20px 22px; margin-top: 6px;
-  }
+  .core-strategy { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 20px 22px; margin-top: 6px; transition: background 0.3s; }
   .core-label { font-size: 10px; letter-spacing: 2px; color: var(--text-faint); text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
   .core-cols { display: flex; gap: 14px; flex-wrap: wrap; }
   .core-col { flex: 1 1 120px; padding-left: 14px; border-left-width: 3px; border-left-style: solid; }
   .core-col-label { font-size: 14px; margin-bottom: 4px; font-weight: 700; }
   .core-col-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; font-weight: 500; }
 
-  /* Streams */
   .streams { display: flex; gap: 14px; flex-wrap: wrap; }
-  .stream-card {
-    flex: 1 1 180px; border-radius: 8px; padding: 22px 18px;
-    border: 1.5px solid; border-top-width: 4px;
-  }
+  .stream-card { flex: 1 1 180px; border-radius: 8px; padding: 22px 18px; border: 1.5px solid; border-top-width: 4px; transition: background 0.3s; }
   .stream-icon { font-size: 28px; margin-bottom: 10px; }
   .stream-type { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
-  .stream-name { font-size: 17px; margin-bottom: 8px; color: #1a1a1a; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .stream-name { font-size: 17px; margin-bottom: 8px; color: var(--text); font-weight: 700; font-family: 'Playfair Display', serif; }
   .stream-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 500; }
 
-  /* Connection */
-  .connection {
-    border: 1.5px solid var(--border); border-radius: 8px;
-    background: var(--surface); padding: 26px 22px;
-    font-size: 15px; line-height: 2.4; color: var(--text-dim); font-weight: 500;
-  }
-  .connection-footer {
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px solid var(--border);
-    font-size: 13px; font-weight: 700;
-  }
+  .connection { border: 1.5px solid var(--border); border-radius: 8px; background: var(--surface); padding: 26px 22px; font-size: 15px; line-height: 2.4; color: var(--text-dim); font-weight: 500; transition: background 0.3s; }
+  .connection-footer { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 700; }
 
-  /* Accordion */
   .accordion { display: flex; flex-direction: column; gap: 4px; }
-  .accordion-header {
-    display: flex; align-items: center; gap: 16px;
-    padding: 18px 22px; cursor: pointer;
-    border-radius: 8px; border: 1.5px solid var(--border);
-    background: var(--surface); transition: all 0.2s;
-    user-select: none;
-  }
+  .accordion-header { display: flex; align-items: center; gap: 16px; padding: 18px 22px; cursor: pointer; border-radius: 8px; border: 1.5px solid var(--border); background: var(--surface); transition: all 0.2s; user-select: none; }
   .accordion-header.open { border-radius: 8px 8px 0 0; }
   .accordion-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .accordion-meta { flex: 1; }
   .accordion-phase-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
-  .accordion-title { font-size: 17px; color: #1a1a1a; margin-top: 4px; font-weight: 700; font-family: 'Playfair Display', serif; }
-  .accordion-toggle { color: #aaa; font-size: 22px; font-weight: 300; }
-  .accordion-body { display: none; padding: 18px 22px 22px; border-radius: 0 0 8px 8px; border-top: none; }
+  .accordion-title { font-size: 17px; color: var(--text); margin-top: 4px; font-weight: 700; font-family: 'Playfair Display', serif; }
+  .accordion-toggle { color: var(--text-faint); font-size: 22px; font-weight: 300; }
+  .accordion-body { display: none; padding: 18px 22px 22px; border-radius: 0 0 8px 8px; border-top: none; transition: background 0.3s; }
   .accordion-body.open { display: block; }
-  .accordion-item {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 9px 0; font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500;
-  }
-  .accordion-item:not(:last-child) { border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .accordion-item { display: flex; gap: 12px; align-items: flex-start; padding: 9px 0; font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 500; }
+  .accordion-item:not(:last-child) { border-bottom: 1px solid rgba(128,128,128,0.1); }
 
-  /* Capital plan */
   .capital-cards { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
-  .capital-card { flex: 1 1 120px; border-radius: 8px; padding: 22px 16px; text-align: center; border: 1.5px solid; }
+  .capital-card { flex: 1 1 120px; border-radius: 8px; padding: 22px 16px; text-align: center; border: 1.5px solid; transition: background 0.3s; }
   .capital-card-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
-  .capital-card-value { color: #1a1a1a; font-weight: 800; font-family: 'Inter', sans-serif; }
+  .capital-card-value { color: var(--text); font-weight: 800; }
   .capital-card-sub { font-size: 12px; color: var(--text-faint); margin-top: 6px; font-weight: 500; }
 
-  .allocation-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; margin-bottom: 14px; }
+  .allocation-box { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; margin-bottom: 14px; transition: background 0.3s; }
   .allocation-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 18px; font-weight: 700; }
   .alloc-row { margin-bottom: 16px; }
   .alloc-header { display: flex; justify-content: space-between; margin-bottom: 7px; font-size: 14px; font-weight: 600; }
-  .alloc-bar-bg { height: 6px; background: #e8e6e2; border-radius: 3px; margin-bottom: 5px; }
+  .alloc-bar-bg { height: 6px; background: var(--bar-bg); border-radius: 3px; margin-bottom: 5px; }
   .alloc-bar-fill { height: 100%; border-radius: 3px; }
   .alloc-desc { font-size: 12px; color: var(--text-faint); font-weight: 500; }
   .alloc-footer { margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--green); line-height: 1.7; font-weight: 600; }
 
-  .scaling-rule {
-    background: var(--green-light); border: 1.5px solid var(--green-border);
-    border-left: 4px solid var(--green); border-radius: 0 8px 8px 0;
-    padding: 18px 22px; margin-bottom: 14px;
-  }
+  .scaling-rule { background: var(--green-light); border: 1.5px solid var(--green-border); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 18px 22px; margin-bottom: 14px; transition: background 0.3s; }
   .scaling-label { font-size: 10px; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
   .scaling-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 600; }
   .scaling-example { font-size: 13px; color: var(--text-muted); margin-top: 7px; font-weight: 500; }
 
-  .milestones { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; }
+  .milestones { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 22px; transition: background 0.3s; }
   .milestones-label { font-size: 10px; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 18px; font-weight: 700; }
   .milestone-row { display: flex; align-items: center; gap: 14px; padding: 11px 0; }
   .milestone-row:not(:last-child) { border-bottom: 1px solid var(--border); }
   .milestone-year { font-size: 13px; color: var(--text-muted); width: 60px; flex-shrink: 0; font-weight: 600; }
-  .milestone-bar-bg { flex: 1; height: 5px; background: #e8e6e2; border-radius: 3px; }
+  .milestone-bar-bg { flex: 1; height: 5px; background: var(--bar-bg); border-radius: 3px; }
   .milestone-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); }
-  .milestone-range { font-size: 13px; color: #1a1a1a; width: 130px; text-align: right; flex-shrink: 0; font-weight: 700; }
-  .milestones-footer { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: #aa3333; line-height: 1.7; font-weight: 600; }
+  .milestone-range { font-size: 13px; color: var(--text); width: 130px; text-align: right; flex-shrink: 0; font-weight: 700; }
+  .milestones-footer { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--red); line-height: 1.7; font-weight: 600; }
 
-  .savings-quote {
-    margin-top: 14px; padding: 16px 22px;
-    background: #fffdf5; border: 1.5px solid var(--gold-border);
-    border-radius: 8px; text-align: center;
-    font-size: 15px; color: var(--gold); font-style: italic; font-weight: 700;
-  }
+  .savings-quote { margin-top: 14px; padding: 16px 22px; background: var(--gold-light); border: 1.5px solid var(--gold-border); border-radius: 8px; text-align: center; font-size: 15px; color: var(--gold); font-style: italic; font-weight: 700; transition: background 0.3s; }
 
-  .rental-box {
-    border: 1.5px solid var(--purple-border); border-left: 4px solid var(--purple);
-    padding: 22px 26px; background: var(--purple-light); border-radius: 0 8px 8px 0;
-  }
+  .rental-box { border: 1.5px solid var(--purple-border); border-left: 4px solid var(--purple); padding: 22px 26px; background: var(--purple-light); border-radius: 0 8px 8px 0; transition: background 0.3s; }
   .rental-text { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 600; }
   .rental-note { margin-top: 14px; font-size: 13px; color: var(--purple); line-height: 1.7; font-weight: 600; }
 
-  .footer {
-    text-align: center; margin-top: 52px; padding-top: 24px;
-    border-top: 2px solid #1a1a1a;
-    font-size: 12px; color: #1a1a1a; letter-spacing: 4px;
-    font-weight: 800; font-family: 'Inter', sans-serif; text-transform: uppercase;
-  }
+  .footer { text-align: center; margin-top: 52px; padding-top: 24px; border-top: 2px solid var(--header-rule); font-size: 12px; color: var(--text); letter-spacing: 4px; font-weight: 800; text-transform: uppercase; }
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" onclick="toggleTheme()" id="toggleBtn">
+  <span id="toggleIcon">☽</span>
+  <span id="toggleLabel">Dark Mode</span>
+</button>
+
 <div class="wrap">
 
-  <!-- Header -->
   <div class="header">
     <div class="header-label">Arthur's Wealth Blueprint</div>
     <h1>The Full System</h1>
     <div class="header-sub">Career · Business · Property — All Three Running</div>
   </div>
 
-  <!-- Step 1: Career Path -->
   <div class="section-label" style="color: var(--gold);">Step 1 — Career Path · The Foundation</div>
 
   <div class="timeline">
@@ -235,9 +221,7 @@
       </div>
       <div class="timeline-card" style="background:var(--gold-light);border-color:var(--gold-border);border-top-color:var(--gold);">
         <div class="phase-meta" style="color:var(--gold);">Bachelor's Degree &nbsp;·&nbsp; Now — 4th Year</div>
-        <div class="phase-title-row">
-          <div class="phase-name">BSIT · Building the Base</div>
-        </div>
+        <div class="phase-title-row"><div class="phase-name">BSIT · Building the Base</div></div>
         <ul class="phase-items">
           <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Secure National ID now — 2nd year IT student</li>
           <li class="phase-item"><span class="phase-arrow" style="color:var(--gold);">→</span>Avail Pag-IBIG 1 voluntary contributions immediately</li>
@@ -254,9 +238,7 @@
       </div>
       <div class="timeline-card" style="background:var(--blue-light);border-color:var(--blue-border);border-top-color:var(--blue);">
         <div class="phase-meta" style="color:var(--blue);">Master's Degree &nbsp;·&nbsp; MPA Year 1 – 2</div>
-        <div class="phase-title-row">
-          <div class="phase-name">Master of Public Administration</div>
-        </div>
+        <div class="phase-title-row"><div class="phase-name">Master of Public Administration</div></div>
         <ul class="phase-items">
           <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Enter MPA directly after BSIT graduation</li>
           <li class="phase-item"><span class="phase-arrow" style="color:var(--blue);">→</span>Continue Pag-IBIG 1 contributions throughout</li>
@@ -291,25 +273,15 @@
   <div class="core-strategy">
     <div class="core-label">Core Strategy</div>
     <div class="core-cols">
-      <div class="core-col" style="border-left-color:var(--gold);">
-        <div class="core-col-label" style="color:var(--gold);">BSIT → MPA</div>
-        <div class="core-col-desc">Credential stack built before employment begins</div>
-      </div>
-      <div class="core-col" style="border-left-color:var(--blue);">
-        <div class="core-col-label" style="color:var(--blue);">Insider Edge</div>
-        <div class="core-col-desc">Sister at Pag-IBIG — real knowledge, not brochure version</div>
-      </div>
-      <div class="core-col" style="border-left-color:var(--purple);">
-        <div class="core-col-label" style="color:var(--purple);">Patience</div>
-        <div class="core-col-desc">Government rewards consistency — play the long game</div>
-      </div>
+      <div class="core-col" style="border-left-color:var(--gold);"><div class="core-col-label" style="color:var(--gold);">BSIT → MPA</div><div class="core-col-desc">Credential stack built before employment begins</div></div>
+      <div class="core-col" style="border-left-color:var(--blue);"><div class="core-col-label" style="color:var(--blue);">Insider Edge</div><div class="core-col-desc">Sister at Pag-IBIG — real knowledge, not brochure version</div></div>
+      <div class="core-col" style="border-left-color:var(--purple);"><div class="core-col-label" style="color:var(--purple);">Patience</div><div class="core-col-desc">Government rewards consistency — play the long game</div></div>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- Step 2: Revenue Streams -->
-  <div class="section-label" style="color:#555;">Step 2 — Three Revenue Streams</div>
+  <div class="section-label" style="color:var(--text-muted);">Step 2 — Three Revenue Streams</div>
   <div class="streams">
     <div class="stream-card" style="background:var(--gold-light);border-color:var(--gold-border);border-top-color:var(--gold);">
       <div class="stream-icon">🏛️</div>
@@ -333,8 +305,7 @@
 
   <div class="divider"></div>
 
-  <!-- Step 3: How They Connect -->
-  <div class="section-label" style="color:#555;">Step 3 — How They Connect</div>
+  <div class="section-label" style="color:var(--text-muted);">Step 3 — How They Connect</div>
   <div class="connection">
     <div><span style="color:var(--gold);font-weight:700;">Government Salary</span> → funds Pag-IBIG contributions + multicab capital savings</div>
     <div><span style="color:var(--green);font-weight:700;">Multicab Cash Flow</span> → builds apartment rental buffer fund</div>
@@ -344,12 +315,11 @@
 
   <div class="divider"></div>
 
-  <!-- Step 4: Execution Timeline -->
-  <div class="section-label" style="color:#555;">Step 4 — Execution Timeline · Tap to Expand</div>
+  <div class="section-label" style="color:var(--text-muted);">Step 4 — Execution Timeline · Tap to Expand</div>
   <div class="accordion">
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#b8860b" onclick="toggle(this)">
+      <div class="accordion-header" data-color-light="#b8860b" data-color-dark="#c9a84c" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--gold);"></div>
         <div class="accordion-meta">
           <div class="accordion-phase-label" style="color:var(--gold);">PHASE 1 &nbsp;·&nbsp; Now — 2nd Year BSIT</div>
@@ -366,7 +336,7 @@
     </div>
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#1a5276" onclick="toggle(this)">
+      <div class="accordion-header" data-color-light="#1a5276" data-color-dark="#7db8d8" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--blue);"></div>
         <div class="accordion-meta">
           <div class="accordion-phase-label" style="color:var(--blue);">PHASE 2 &nbsp;·&nbsp; MPA Year 1 – 2</div>
@@ -383,7 +353,7 @@
     </div>
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#2d6a2d" onclick="toggle(this)">
+      <div class="accordion-header" data-color-light="#2d6a2d" data-color-dark="#7dba7d" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--green);"></div>
         <div class="accordion-meta">
           <div class="accordion-phase-label" style="color:var(--green);">PHASE 3 &nbsp;·&nbsp; Years 1 – 4 at Pag-IBIG</div>
@@ -400,7 +370,7 @@
     </div>
 
     <div class="accordion-item-wrap">
-      <div class="accordion-header" data-color="#6c3483" onclick="toggle(this)">
+      <div class="accordion-header" data-color-light="#6c3483" data-color-dark="#c490d1" onclick="toggle(this)">
         <div class="accordion-dot" style="background:var(--purple);"></div>
         <div class="accordion-meta">
           <div class="accordion-phase-label" style="color:var(--purple);">PHASE 4 &nbsp;·&nbsp; Years 4 – 8+ at Pag-IBIG</div>
@@ -420,7 +390,6 @@
 
   <div class="divider"></div>
 
-  <!-- Step 5: Multicab Capital -->
   <div class="section-label" style="color:var(--green);">Step 5 — ₱1M Capital Plan · Multicab Business</div>
 
   <div class="capital-cards">
@@ -444,17 +413,17 @@
   <div class="allocation-box">
     <div class="allocation-label" style="color:var(--green);">Income Allocation — Non-Negotiable</div>
     <div class="alloc-row">
-      <div class="alloc-header"><span style="color:#1a1a1a;">Needs</span><span style="color:var(--text-muted);">50–60%</span></div>
-      <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:55%;background:#aaaaaa;"></div></div>
+      <div class="alloc-header"><span style="color:var(--text);">Needs</span><span style="color:var(--text-muted);">50–60%</span></div>
+      <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:55%;background:var(--text-faint);"></div></div>
       <div class="alloc-desc">Food, transport, basic lifestyle</div>
     </div>
     <div class="alloc-row">
-      <div class="alloc-header"><span style="color:#1a1a1a;">Savings</span><span style="color:var(--green);">20–30%</span></div>
+      <div class="alloc-header"><span style="color:var(--text);">Savings</span><span style="color:var(--green);">20–30%</span></div>
       <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:25%;background:var(--green);"></div></div>
       <div class="alloc-desc">Your ₱14K–₱17K monthly target</div>
     </div>
     <div class="alloc-row" style="margin-bottom:0;">
-      <div class="alloc-header"><span style="color:#1a1a1a;">Investments</span><span style="color:var(--blue);">10–20%</span></div>
+      <div class="alloc-header"><span style="color:var(--text);">Investments</span><span style="color:var(--blue);">10–20%</span></div>
       <div class="alloc-bar-bg"><div class="alloc-bar-fill" style="width:15%;background:var(--blue);"></div></div>
       <div class="alloc-desc">Stocks, small growth plays</div>
     </div>
@@ -463,32 +432,16 @@
 
   <div class="scaling-rule">
     <div class="scaling-label">Scaling Rule — Where Most People Fail</div>
-    <div class="scaling-text">Every salary increase → at least <span style="color:#1a1a1a;">50% goes to savings</span>, not spending.</div>
+    <div class="scaling-text">Every salary increase → at least <strong>50% goes to savings</strong>, not spending.</div>
     <div class="scaling-example">Example: +₱10K raise = ₱5K added to savings. Not clothes. Not eating out.</div>
   </div>
 
   <div class="milestones">
     <div class="milestones-label">Milestone Checkpoints</div>
-    <div class="milestone-row">
-      <div class="milestone-year">Year 1</div>
-      <div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:18%;"></div></div>
-      <div class="milestone-range">₱150K – ₱200K</div>
-    </div>
-    <div class="milestone-row">
-      <div class="milestone-year">Year 2</div>
-      <div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:35%;"></div></div>
-      <div class="milestone-range">₱300K – ₱400K</div>
-    </div>
-    <div class="milestone-row">
-      <div class="milestone-year">Year 3</div>
-      <div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:57%;"></div></div>
-      <div class="milestone-range">₱500K – ₱650K</div>
-    </div>
-    <div class="milestone-row" style="border:none;">
-      <div class="milestone-year">Year 4–5</div>
-      <div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:90%;"></div></div>
-      <div class="milestone-range">₱800K – ₱1M</div>
-    </div>
+    <div class="milestone-row"><div class="milestone-year">Year 1</div><div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:18%;"></div></div><div class="milestone-range">₱150K – ₱200K</div></div>
+    <div class="milestone-row"><div class="milestone-year">Year 2</div><div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:35%;"></div></div><div class="milestone-range">₱300K – ₱400K</div></div>
+    <div class="milestone-row"><div class="milestone-year">Year 3</div><div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:57%;"></div></div><div class="milestone-range">₱500K – ₱650K</div></div>
+    <div class="milestone-row" style="border:none;"><div class="milestone-year">Year 4–5</div><div class="milestone-bar-bg"><div class="milestone-bar-fill" style="width:90%;"></div></div><div class="milestone-range">₱800K – ₱1M</div></div>
     <div class="milestones-footer">If you're below a checkpoint — increase income or cut spending immediately. No hoping it fixes itself.</div>
   </div>
 
@@ -496,7 +449,6 @@
 
   <div class="divider"></div>
 
-  <!-- Step 6: Rental -->
   <div class="section-label" style="color:var(--purple);">Step 6 — Apartment Rental · The Number to Watch</div>
   <div class="rental-box">
     <div class="rental-text">Monthly rental income must exceed monthly loan amortization — with buffer for vacancies and maintenance. If the gap is thin, one vacant month wipes your margin.</div>
@@ -508,10 +460,36 @@
 </div>
 
 <script>
+  const html = document.documentElement;
+  const btn = document.getElementById('toggleBtn');
+  const icon = document.getElementById('toggleIcon');
+  const label = document.getElementById('toggleLabel');
+
+  function getTheme() { return html.getAttribute('data-theme'); }
+
+  function applyTheme(theme) {
+    html.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (theme === 'dark') {
+      icon.textContent = '☀️';
+      label.textContent = 'Light';
+    } else {
+      icon.textContent = '🌙';
+      label.textContent = 'Dark';
+    }
+  }
+
+  function toggleTheme() {
+    applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+  }
+
+  // Load saved preference
+  const saved = localStorage.getItem('theme');
+  if (saved) applyTheme(saved);
+
   function toggle(header) {
     const body = header.nextElementSibling;
     const isOpen = body.classList.contains('open');
-    const color = header.dataset.color;
     document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
     document.querySelectorAll('.accordion-header').forEach(h => {
       h.classList.remove('open');
@@ -522,6 +500,8 @@
     if (!isOpen) {
       body.classList.add('open');
       header.classList.add('open');
+      const theme = getTheme();
+      const color = theme === 'dark' ? header.dataset.colorDark : header.dataset.colorLight;
       header.style.borderColor = color;
       header.querySelector('.accordion-toggle').textContent = '−';
     }
